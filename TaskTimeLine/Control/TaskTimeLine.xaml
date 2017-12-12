@@ -127,7 +127,7 @@
                             <StackPanel>
                                 <local:TaskBar x:Name="taskBar"  Tag="{Binding}" SelectedTaskItem="{Binding ElementName=this,Path=SelectedTaskItem,Mode=TwoWay}" MoveThumebChanged="TaskBar_OnMoveThumebChanged" TimeLineWidthChanged="TaskBar_OnTimeLineWidthChanged" 
                                                    BaseWidth="{Binding ElementName=this,Path=BaseWidth}" TimeLineWidth="{Binding ElementName=this,Path=TimeLineWidth,Mode=TwoWay}"
-                                                   UserSetStartTime ="{Binding StartTime, Mode=TwoWay}" UserSetEndTime="{Binding EndTime,Mode=TwoWay}" IsPlaying="{Binding ElementName=this,Path=IsPlaying,Mode=TwoWay}"
+                                                   StartTime ="{Binding StartTime, Mode=TwoWay}" EndTime="{Binding EndTime,Mode=TwoWay}" IsPlaying="{Binding ElementName=this,Path=IsPlaying,Mode=TwoWay}"
                                                CanEdit="{Binding ElementName=this,Path=CanEdit,Mode=TwoWay}"
                                                    >
                                     <local:TaskBar.ToolTip>

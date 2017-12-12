@@ -136,6 +136,7 @@ namespace TaskTimeLineLab.Common
         {
             if (CanEdit && !IsPlaying)
             {
+                double duration = MoveEndTime = MoveStartTime;
                 System.Windows.Controls.Control designerItem = this.DataContext as System.Windows.Controls.Control;
 
                 if (designerItem != null)
@@ -154,8 +155,8 @@ namespace TaskTimeLineLab.Common
                     }
                     Canvas.SetLeft(designerItem, offsize);
                     MoveStartTime = (int)(Canvas.GetLeft(designerItem) / BaseWidth);
-                    BarWidth = designerItem.Width;
-                    MoveEndTime = MoveStartTime + Math.Floor(BarWidth / BaseWidth);
+                    //BarWidth = designerItem.Width;
+                    MoveEndTime = MoveStartTime + duration;
                     if ((MoveStartTime * BaseWidth + BarWidth) > TimeLineWidth)
                     {
                         TimeLineWidth = MoveStartTime * BaseWidth + BarWidth;

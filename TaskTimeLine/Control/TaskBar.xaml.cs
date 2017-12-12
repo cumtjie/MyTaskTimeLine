@@ -31,8 +31,8 @@ namespace TaskTimeLineLab.Control
         /// </summary>
         private void TaskBar_Loaded(object sender, RoutedEventArgs e)
         {
-            StartTime = UserSetStartTime;
-            EndTime = UserSetEndTime;
+            //StartTime = UserSetStartTime;
+            //EndTime = UserSetEndTime;
             BarWidth = (EndTime - StartTime) * BaseWidth;
             Canvas.SetLeft(task, StartTime * BaseWidth);
         }
@@ -71,29 +71,29 @@ namespace TaskTimeLineLab.Control
         // * 根据用户设置初始化时间初始化UI（面向用户设计界面接口） by cumtjie
         // */
 
-        public static readonly DependencyProperty UserSetStartTimeProperty = DependencyProperty.Register(
-            "UserSetStartTime", typeof(double), typeof(TaskBar), new PropertyMetadata(0.0));
-        /// <summary>
-        /// 用户设置起始时间
-        /// </summary>
-        public double UserSetStartTime
-        {
-            get { return (double)GetValue(UserSetStartTimeProperty); }
-            set { SetValue(UserSetStartTimeProperty, value); }
-        }
+        //public static readonly DependencyProperty UserSetStartTimeProperty = DependencyProperty.Register(
+        //    "UserSetStartTime", typeof(double), typeof(TaskBar), new PropertyMetadata(0.0));
+        ///// <summary>
+        ///// 用户设置起始时间
+        ///// </summary>
+        //public double UserSetStartTime
+        //{
+        //    get { return (double)GetValue(UserSetStartTimeProperty); }
+        //    set { SetValue(UserSetStartTimeProperty, value); }
+        //}
 
 
 
-        public static readonly DependencyProperty UserSetEndTimeProperty = DependencyProperty.Register(
-           "UserSetEndTime", typeof(double), typeof(TaskBar), new PropertyMetadata(2.0));
-        /// <summary>
-        /// 用户设置结束时间
-        /// </summary>
-        public double UserSetEndTime
-        {
-            get { return (double)GetValue(UserSetEndTimeProperty); }
-            set { SetValue(UserSetEndTimeProperty, value); }
-        }
+        //public static readonly DependencyProperty UserSetEndTimeProperty = DependencyProperty.Register(
+        //   "UserSetEndTime", typeof(double), typeof(TaskBar), new PropertyMetadata(2.0));
+        ///// <summary>
+        ///// 用户设置结束时间
+        ///// </summary>
+        //public double UserSetEndTime
+        //{
+        //    get { return (double)GetValue(UserSetEndTimeProperty); }
+        //    set { SetValue(UserSetEndTimeProperty, value); }
+        //}
 
         /**
          *基本依赖属性（面向底层逻辑实现） by cumtjie
@@ -123,7 +123,9 @@ namespace TaskTimeLineLab.Control
 
         private void StartTimeChange(DependencyPropertyChangedEventArgs e)
         {
-            UserSetStartTime = double.Parse(e.NewValue.ToString());
+            double duration = EndTime - double.Parse(e.NewValue.ToString());
+            BarWidth = duration*BaseWidth;
+            Canvas.SetLeft(task, double.Parse(e.NewValue.ToString()) * BaseWidth);
         }
 
 
@@ -149,7 +151,9 @@ namespace TaskTimeLineLab.Control
 
         private void EndTimeChange(DependencyPropertyChangedEventArgs e)
         {
-            UserSetEndTime = double.Parse(e.NewValue.ToString());
+            double duration = double.Parse(e.NewValue.ToString()) -StartTime;
+            BarWidth = duration * BaseWidth;
+            Canvas.SetLeft(task, StartTime * BaseWidth);
         }
 
 
