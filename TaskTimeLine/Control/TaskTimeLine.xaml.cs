@@ -18,7 +18,7 @@ using System.Windows.Threading;
 
 namespace TaskTimeLineLab.Control
 {
-    public delegate void RefreshScaleBarPopup(bool isVisible);
+    //public delegate void RefreshScaleBarPopup(bool isVisible);
     /// <summary>
     /// TaskTimeLine.xaml 的交互逻辑  by cumtjie 2017/12/5 
     /// </summary>
@@ -37,10 +37,12 @@ namespace TaskTimeLineLab.Control
 
         private void TaskTimeLine_Loaded(object sender, RoutedEventArgs e)
         {
+            ScaleBaseWidth = BaseWidth;
             ReFreshScaleBar();
             InitTimer();
         }
 
+        private double ScaleBaseWidth = 30;//刻度线宽度初始后固定
 
 
         /// <summary>
@@ -49,38 +51,71 @@ namespace TaskTimeLineLab.Control
         public void ReFreshScaleBar()
         {
             ticksPanel.Children.Clear();
-            int scaleCount = (int)(TimeLineWidth/BaseWidth);
+            int scaleCount = (int)(TimeLineWidth/ScaleBaseWidth);
             for (int i = 0; i < scaleCount; i++)
             {
-                int yu = i%60;
-                int zheng = i/60;
+                int yu = i%(60/ScaleDuration);
+                int zheng = i/(60/ScaleDuration);
 
                 NewScale newScale = new NewScale();
-                newScale.ScaleWidth = BaseWidth;
+                newScale.ScaleWidth = ScaleBaseWidth;
                 if (yu == 0 && zheng > 0)
                 {
                     newScale.ScaleValue = zheng + "分";
                 }
                 else
                 {
-                    newScale.ScaleValue = yu + "秒";
+                    newScale.ScaleValue = yu*ScaleDuration + "秒";
                 }
-                ticksPanel.Children.Add(newScale);
-                //Scale rectangle = new Scale();
-                //rectangle.Height = 20;
-                //if (yu == 0 && zheng > 0)
-                //{
-                //    rectangle.SecondValue = zheng + "分";
-                //}
-                //else 
-                //{
-                //    rectangle.SecondValue = yu + "秒";
-                //}
-
-                //rectangle.Margin = new Thickness(0, 0, BaseWidth-1, 0);
-                //ticksPanel.Children.Add(rectangle);
+                ticksPanel.Children.Add(newScale);   
             }
-            //UpdateScaleBar(true);
+        }
+        private ObservableCollection<TaskItem> TempTaskItemSource = new ObservableCollection<TaskItem>();
+        /// <summary>
+        /// 放大刻度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Enlarge_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ScaleDuration == 8)
+            {
+                return;
+            }
+            ScaleDuration = ScaleDuration*2;
+            ZoomScale(ScaleDuration);
+        }
+        /// <summary>
+        /// 缩小刻度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Shrink_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ScaleDuration == 1)
+            {
+                return;
+            }
+            ScaleDuration = ScaleDuration/2;
+            ZoomScale(ScaleDuration);
+        }
+        /// <summary>
+        /// 缩放
+        /// </summary>
+        /// <param name="scaleDuration"></param>
+        private void ZoomScale(int scaleDuration)
+        {
+            if (TempTaskItemSource == null)
+            {
+                TempTaskItemSource = new ObservableCollection<TaskItem>();
+            }
+            TempTaskItemSource.Clear();
+            TempTaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TaskItemSource);
+            BaseWidth = ScaleBaseWidth/scaleDuration;
+            TaskItemSource.Clear();
+            TaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TempTaskItemSource);
+            ReFreshScaleBar();
+            SetTimePara();
         }
 #region 刷新刻度相关  
         /// <summary>
@@ -139,7 +174,18 @@ namespace TaskTimeLineLab.Control
         }
 
         #endregion
-        #region 依赖属性  
+        #region 依赖属性 
+        public static readonly DependencyProperty ScaleDurationProperty = DependencyProperty.Register(
+            "ScaleDuration", typeof(int), typeof(TaskTimeLine), new PropertyMetadata(1));
+        /// <summary>
+        /// 刻度值放大倍数
+        /// </summary>
+        public int ScaleDuration
+        {
+            get { return (int)GetValue(ScaleDurationProperty); }
+            set { SetValue(ScaleDurationProperty, value); }
+        }
+
         public static readonly DependencyProperty CanEditProperty = DependencyProperty.Register(
             "CanEdit", typeof(bool), typeof(TaskTimeLine), new PropertyMetadata(true));
         /// <summary>
@@ -407,13 +453,13 @@ namespace TaskTimeLineLab.Control
             }
             if (e.Delta < 0)
             {
-                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + BaseWidth );
-                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + BaseWidth );
+                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth );
+                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth);
             }
             else
             {
-                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - BaseWidth );
-                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - BaseWidth );
+                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
+                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
             }
         }
         #endregion
@@ -566,11 +612,18 @@ namespace TaskTimeLineLab.Control
         /// </summary>
         private void InitTimer()
         {
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Tick += StartPlay;
+            SetTimePara();
+        }
+        /// <summary>
+        /// 设置播放相关参数
+        /// </summary>
+        private void SetTimePara()
+        {
             timeCompareNum = 0.05;
             distanceCompareNum = BaseWidth/10;
             MoveUnit = BaseWidth/10;
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timer.Tick += StartPlay;
         }
         /// <summary>
         /// 播放
@@ -832,14 +885,16 @@ namespace TaskTimeLineLab.Control
 
         #endregion
 
-
+        
     }
 
+    [Serializable]
     /// <summary>
     /// 任务类型  
     /// </summary>
     public class TaskItem : INotifyPropertyChanged
     {
+        [field:NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string PropertyName)

@@ -74,6 +74,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Common\MoveThumb.cs" />
     <Compile Include="Common\MyAdorner.cs" />
     <Compile Include="Common\ResizeThumb.cs" />
@@ -170,6 +171,10 @@
   <ItemGroup>
     <Resource Include="Resources\展开.png" />
     <Resource Include="Resources\收起.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\放大.png" />
+    <Resource Include="Resources\缩小.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

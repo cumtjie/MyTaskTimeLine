@@ -75,6 +75,16 @@
                     <ImageBrush ImageSource="../Resources/停止.png"/>
                 </Button.Background>
             </Button>
+            <Button x:Name="Enlarge" ToolTip="放大" Width="15" Height="15" Margin="6 0 6 0" Click="Enlarge_OnClick">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/放大.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Shrink" ToolTip="缩小" Width="15" Height="15" Margin="6 0 6 0" Click="Shrink_OnClick">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/缩小.png"/>
+                </Button.Background>
+            </Button>
         </StackPanel>
         <StackPanel Visibility="{Binding ElementName=this,Path=CanEdit,Converter={StaticResource ReverseBoolConvertVisiable}}" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="0" Margin="0 5 10 13">
             <CheckBox x:Name="CollapsedAndExpander" ToolTip="折叠/展开" Style="{StaticResource ExpanderCheckBoxStyle}" Height="15" Margin="1 5 1 0" Checked="CollapsedAndExpander_OnChecked"  Unchecked="CollapsedAndExpander_OnUnchecked"/>
