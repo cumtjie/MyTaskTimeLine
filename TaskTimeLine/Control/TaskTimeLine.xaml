@@ -18,6 +18,9 @@
             <convert:ReverseBoolConvertVisiable x:Key="ReverseBoolConvertVisiable"/>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <MouseBinding Gesture=""></MouseBinding>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

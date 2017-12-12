@@ -32,7 +32,55 @@ namespace TaskTimeLineLab.Control
         {
             InitializeComponent();
             this.Loaded += TaskTimeLine_Loaded;
+            this.MouseWheel += TaskTimeLine_MouseWheel;
+            //this.KeyDown += TaskTimeLine_KeyDown;
+            //this.KeyUp += TaskTimeLine_KeyUp;
            // RefreshScaleBarPopupHandel += UpdateScaleBar;
+        }
+
+        private bool isZoom = false;
+
+        private void TaskTimeLine_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+            {
+                isZoom = false;
+            }
+        }
+
+        private void TaskTimeLine_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+            {
+                isZoom = true;
+            }
+        }
+
+        private void TaskTimeLine_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0;
+            if (!handle)
+                return;
+
+            if (e.Delta > 0)
+            {
+                Shrink_OnClick(null, null);
+            }
+            else if (e.Delta < 0)
+            {
+                Enlarge_OnClick(null, null);
+            }
+            //if (isZoom)
+            //{
+            //    if (e.Delta > 0)
+            //    {
+            //        Shrink_OnClick(null, null);
+            //    }
+            //    else if(e.Delta < 0)
+            //    {
+            //        Enlarge_OnClick(null, null);
+            //    }
+            //}
         }
 
         private void TaskTimeLine_Loaded(object sender, RoutedEventArgs e)
@@ -109,11 +157,23 @@ namespace TaskTimeLineLab.Control
             {
                 TempTaskItemSource = new ObservableCollection<TaskItem>();
             }
+            if (TaskItemSource == null)
+            {
+                TaskItemSource = new ObservableCollection<TaskItem>();
+            }
             TempTaskItemSource.Clear();
-            TempTaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TaskItemSource);
+            foreach (TaskItem item in TaskItemSource)
+            {
+                TempTaskItemSource.Add(item);
+            }
+            //TempTaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TaskItemSource);
             BaseWidth = ScaleBaseWidth/scaleDuration;
             TaskItemSource.Clear();
-            TaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TempTaskItemSource);
+            foreach (TaskItem item in TempTaskItemSource)
+            {
+                TaskItemSource.Add(item);
+            }
+            //TaskItemSource = Common.Common.Clone<ObservableCollection<TaskItem>>(TempTaskItemSource);
             ReFreshScaleBar();
             SetTimePara();
         }
@@ -451,15 +511,30 @@ namespace TaskTimeLineLab.Control
             {
                 return;
             }
-            if (e.Delta < 0)
+            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0;
+            if (handle)
             {
-                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth );
-                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth);
+                if (e.Delta > 0)
+                {
+                    Shrink_OnClick(null, null);
+                }
+                else if (e.Delta < 0)
+                {
+                    Enlarge_OnClick(null, null);
+                }
             }
             else
             {
-                TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
-                ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
+                if (e.Delta < 0)
+                {
+                    TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth);
+                    ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset + ScaleBaseWidth);
+                }
+                else
+                {
+                    TimeLineScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
+                    ScaleBarScrollViewer.ScrollToHorizontalOffset(TimeLineScrollViewer.HorizontalOffset - ScaleBaseWidth);
+                }
             }
         }
         #endregion
@@ -888,13 +963,13 @@ namespace TaskTimeLineLab.Control
         
     }
 
-    [Serializable]
+    //[Serializable]
     /// <summary>
     /// 任务类型  
     /// </summary>
     public class TaskItem : INotifyPropertyChanged
     {
-        [field:NonSerialized]
+        //[field:NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string PropertyName)
