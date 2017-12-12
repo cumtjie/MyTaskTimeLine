@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="TaskTimeLineLab.Control.TrendLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width ="10"
+             >
+    <Grid x:Name="TrendGrid">
+        <Rectangle Width="1" Fill="Yellow"/>
+        <Path x:Name="Trend"  Data="M 0,0 L5,5,10,0 Z" Fill="Yellow" />
+    </Grid>
+</UserControl>

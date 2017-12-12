@@ -1,0 +1,11 @@
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\Scale.baml
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\TrendLine.baml
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\Scale.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\TaskBar.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\TaskTimeLine.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\Control\TrendLine.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\MainWindow.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\App.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLine_MarkupCompile.cache
+C:\Users\songl\Documents\Visual Studio 2015\Projects\TaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLine_MarkupCompile.lref

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="TaskTimeLineLab.Control.Scale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="1" x:Name="this"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<TextBlock Grid.Row="0" Width="20" Background="Transparent" Foreground="White" Text="{Binding ElementName=this,Path=SecondValue}"/>-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Rectangle LayoutUpdated="Rectangle_OnLayoutUpdated"  x:Name="rectangle" Fill="White" Width="1" Margin="0"/>
+        </StackPanel>
+        <Popup x:Name="popup" AllowsTransparency="True" AllowDrop="True" Placement="Top" HorizontalOffset="-5"  IsOpen="{Binding ElementName=this,Path=IsPopupOpen}" PlacementTarget="{Binding ElementName=rectangle}">
+            <TextBlock Background="Transparent" Foreground="White" Text="{Binding ElementName=this,Path=SecondValue}"/>
+        </Popup>
+        <!--<Popup x:Name="popup" AllowsTransparency="True" AllowDrop="True" Placement="Top" HorizontalOffset="-5"  IsOpen="False" PlacementTarget="{Binding ElementName=rectangle}">
+            <TextBlock Background="Transparent" Foreground="White" Text="{Binding ElementName=this,Path=SecondValue}"/>
+        </Popup>-->
+    </Grid>
+</UserControl>

@@ -1,0 +1,13 @@
+﻿<Window x:Class="TaskTimeLineDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskTimeLineDemo"
+        xmlns:control="clr-namespace:TaskTimeLineLab.Control;assembly=TaskTimeLineLab"
+        mc:Ignorable="d" Width="500" Height="280" x:Name="this"
+        Title="MainWindow"   Background="#FF888888"  ResizeMode="NoResize">
+    <Grid>
+        <control:TaskTimeLine MouseLeftButtonDown="TaskTimeLineLab_OnMouseLeftButtonDown" TaskItemSource="{Binding ElementName=this,Path=Items}" TaskBarStart="TaskTimeLineLab_TaskBarStart" TaskBarEnd="TaskTimeLineLab_TaskBarEnd" TaskItemSelectChanged="TaskTimeLineLab_TaskItemSelectChanged" AllowDrop="True"  BaseWidth="30" CanEdit="True"  x:Name="TaskTimeLineLab"  />
+    </Grid>
+</Window>
