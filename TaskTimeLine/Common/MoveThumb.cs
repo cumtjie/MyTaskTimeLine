@@ -136,7 +136,7 @@ namespace TaskTimeLineLab.Common
         {
             if (CanEdit && !IsPlaying)
             {
-                double duration = MoveEndTime = MoveStartTime;
+                double duration = MoveEndTime - MoveStartTime;
                 System.Windows.Controls.Control designerItem = this.DataContext as System.Windows.Controls.Control;
 
                 if (designerItem != null)
