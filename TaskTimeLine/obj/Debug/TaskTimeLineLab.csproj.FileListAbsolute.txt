@@ -128,3 +128,5 @@ C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLineLab.Pro
 C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLineLab.csproj.GenerateResource.Cache
 C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLineLab.dll
 C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\TaskTimeLineLab.pdb
+C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\Themes\ScrollBarStyle.baml
+C:\Users\songl\Desktop\MyTaskTimeLine\TaskTimeLine\obj\Debug\Themes\ScrollViewerStyle.baml

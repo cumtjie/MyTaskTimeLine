@@ -128,7 +128,7 @@
         </Grid>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" />
         <Grid Grid.Row="2"  Grid.Column="2" x:Name="ticksGrid" >
-            <ScrollViewer Style="{StaticResource ScrollViewerStyle}" ScrollChanged="TimeLineScrollViewer_OnScrollChanged" x:Name="TimeLineScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
+            <ScrollViewer Style="{StaticResource for_scrollviewer}" ScrollChanged="TimeLineScrollViewer_OnScrollChanged" x:Name="TimeLineScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
                 <ListBox  x:Name="Task_ListBox"  Background="#665D666F"   SelectionChanged="Task_ListBox_OnSelectionChanged" SelectedIndex="{Binding ElementName=this,Path=SelectedTaskItemIndex,Mode=TwoWay}" SelectedItem="{Binding ElementName=this,Path=SelectedTaskItem,Mode=TwoWay}"  BorderThickness="0"  ItemsSource="{Binding ElementName=this,Path=TaskItemSource,Mode=TwoWay}"   VerticalAlignment="Top"  >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
